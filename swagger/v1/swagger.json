@@ -1,0 +1,142 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "basePath": "/",
+  "host": "localhost:5678",
+  "schemes": [
+    "http"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "description": "Some fancy error message",
+          "example": "An error occoured because you're holding it wrong!"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/users/{id}": {
+      "get": {
+        "summary": "show a user",
+        "tags": [
+          "users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The primary id of your fancy users",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "yay user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "awesome": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "awesome"
+              ]
+            },
+            "examples": {
+              "application/json": {
+                "id": 1,
+                "name": "Oscar Janosch",
+                "awesome": true,
+                "created_at": "2017-06-12T12:23:44.733Z",
+                "updated_at": "2017-06-12T12:23:44.733Z"
+              }
+            }
+          },
+          "404": {
+            "description": "oh noes, user not found",
+            "schema": {
+              "$ref": "#/definitions/error"
+            },
+            "examples": {
+              "application/json": {
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "list of awesome users",
+        "tags": [
+          "users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "awesome",
+            "in": "path",
+            "type": "boolean",
+            "enum": [
+              "true",
+              "false"
+            ],
+            "description": "The users awesomeness",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "yay user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "awesome": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "awesome"
+              ]
+            },
+            "examples": {
+              "application/json": {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
